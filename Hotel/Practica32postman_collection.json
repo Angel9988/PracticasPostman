@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "0c5bff94-1d10-4f44-8827-088d747cf7ab",
+		"name": "Practica 3.2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bad9ee39-b88b-427e-be44-1f125b2681ea",
+						"exec": [
+							"pm.test(\"Validar estatus 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Prueba estatus code\", function(){\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta menor a 300ms\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar header Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})\r",
+							"\r",
+							"console.log(\"Respuesta: \",pm.response)\r",
+							"console.log(\"Codigo de respuesta: \", pm.response.code)\r",
+							"console.log(\"Estado de respuesta: \", pm.response.status)\r",
+							"console.log(\"Tiempo de respuesta: \", pm.response.responseTime)\r",
+							"console.log(\"Cuerpo de respuesta: \", pm.response.text)\r",
+							"console.log(\"Tamaño de respuesta: \", pm.response.responseSize)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/ping",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver si hay reserva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48e72390-19d7-475f-b44b-811ced5bc296",
+						"exec": [
+							"\r",
+							"pm.test(\"Validar id\", function(){\r",
+							"    pm.response.to.have.body;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta menor a 300ms\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar header Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar campo\", function(){\r",
+							"    pm.expect(jsonData[0].bookingid).not.eq(\"undefined\")\r",
+							"});\r",
+							"\r",
+							"//console.log(\"res: \", jsonData)\r",
+							"//console.log(\"Id: \", jsonData[0].bookingid)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/booking",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver reservacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e901149-3e19-4b1a-8227-38168d911a82",
+						"exec": [
+							"pm.test(\"Prueba status code\", function(){\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar id\", function(){\r",
+							"    pm.response.to.have.body;\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"console.log(\"Nombre: \", jsonData.firstname)\r",
+							"\r",
+							"pm.test(\"Validar nombre: \",function(){\r",
+							"    pm.expect(jsonData.firstname).to.be.equal(\"Ley\");\r",
+							"});\r",
+							"\r",
+							"console.log(\"Apellido: \", jsonData.lastname)\r",
+							"pm.test(\"Validar apellido \",function(){\r",
+							"    pm.expect(jsonData.lastname).to.be.equal(\"Red\");\r",
+							"});\r",
+							"\r",
+							"console.log(\"Totalprice: \", jsonData.totalprice)\r",
+							"pm.test(\"Validar totalprice\",function(){\r",
+							"    pm.expect(jsonData.totalprice).to.be.equal(814);\r",
+							"});\r",
+							"\r",
+							"console.log(\"Checkin: \", jsonData.checkin)\r",
+							"pm.test(\"Validar checkin\",function(){\r",
+							"    pm.expect(jsonData.bookingdates.checkin).to.be.equal(\"2019-06-29\");\r",
+							"});\r",
+							"\r",
+							"console.log(\"Checkout: \", jsonData.checkout)\r",
+							"pm.test(\"Validar checkout\",function(){\r",
+							"    pm.expect(jsonData.bookingdates.checkout).to.be.equal(\"2020-05-30\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/booking/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Reserva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25579271-ebe7-470f-9e99-76e84a91b76c",
+						"exec": [
+							"pm.test(\"Prueba status code\", function(){\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar id\", function(){\r",
+							"    pm.response.to.have.body;\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"console.log(\"Response: \", jsonData)\r",
+							"console.log(\"Id: \", jsonData.bookingid)\r",
+							"\r",
+							"pm.environment.set('ID', jsonData.bookingid);\r",
+							"postman.setEnvironmentVariable('ID2', jsonData.bookingid);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=41e482c10e43740",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Ley\",\r\n    \"lastname\": \"Red\",\r\n    \"totalprice\": 814,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2019-06-29\",\r\n        \"checkout\": \"2020-05-30\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/booking",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Reserva",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2b9d6a4e-64bb-451c-a3a1-7ce6979dc8da",
+						"exec": [
+							"let getTokenRequest = {\r",
+							"    method: 'POST',\r",
+							"    url : 'https://restful-booker.herokuapp.com/auth',\r",
+							"    body:{\r",
+							"        mode : 'urlencoded',\r",
+							"        urlencoded: [\r",
+							"            {key : 'username', value : 'admin'},\r",
+							"            {key : 'password', value : 'password123'}\r",
+							"        ]\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"\r",
+							"console.log(\"Funcion: \", getTokenRequest)\r",
+							"\r",
+							"pm.sendRequest(getTokenRequest,(err, response) => \r",
+							"{\r",
+							"    console.log(\"Respuesta: \", response)\r",
+							"    console.log(\"Body: \", response.text)\r",
+							"    var jsonResponse = response.json();\r",
+							"    newToken = jsonResponse.token\r",
+							"    \r",
+							"    pm.environment.set('token', newToken)\r",
+							"    console.log(\"Token: \", newToken)\r",
+							"}\r",
+							"\r",
+							")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "701dd810-489a-4507-ae57-1e8e075dbfd7",
+						"exec": [
+							"pm.test(\"Tiempo de respuesta menor a 300ms\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar header Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Neo\",\r\n    \"lastname\": \"Anderson\",\r\n    \"totalprice\": 814,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2019-06-29\",\r\n        \"checkout\": \"2020-05-30\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/booking/1",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generar Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd7fe548-87b2-4cd5-b13c-11db05edeb02",
+						"exec": [
+							"pm.test(\"Prueba status code\", function(){\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/auth",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patrial Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39502168-a5ec-4f17-bb1e-a2def9101cea",
+						"exec": [
+							"pm.test(\"Prueba status code\", function(){\r",
+							"    pm.expect(pm.response.code).to.equal(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar id\", function(){\r",
+							"    pm.response.to.have.body;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar tiempo de respuesta\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.below(300);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token= {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\" : \"James\",\"lastname\" : \"Brown\",\"totalprice\" : 111,\"depositpaid\" : true,\"bookingdates\" : {\"checkin\" : \"2018-01-01\",\"checkout\" : \"2019-01-01\"},\"additionalneeds\" : \"Breakfast\"}"
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/1",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Reserva",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ecd62ca8-2e5e-4a0c-8887-40b2972a13ae",
+						"exec": [
+							"let getTokenRequest = {\r",
+							"    method: 'POST',\r",
+							"    url : 'https://restful-booker.herokuapp.com/auth',\r",
+							"    body:{\r",
+							"        mode : 'urlencoded',\r",
+							"        urlencoded: [\r",
+							"            {key : 'username', value : 'admin'},\r",
+							"            {key : 'password', value : 'password123'}\r",
+							"        ]\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"\r",
+							"console.log(\"Funcion: \", getTokenRequest)\r",
+							"\r",
+							"pm.sendRequest(getTokenRequest,(err, response) => \r",
+							"{\r",
+							"    console.log(\"Respuesta: \", response)\r",
+							"    console.log(\"Body: \", response.text)\r",
+							"    var jsonResponse = response.json();\r",
+							"    newToken = jsonResponse.token\r",
+							"    \r",
+							"    pm.environment.set('token', newToken)\r",
+							"    console.log(\"Token: \", newToken)\r",
+							"}\r",
+							"\r",
+							")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "642fbcf1-2c4f-42d8-8183-b14eca0c8abd",
+						"exec": [
+							"pm.test(\"Validar header Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Angel\",\r\n    \"lastname\": \"Rayo\",\r\n    \"totalprice\": 814,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2019-06-29\",\r\n        \"checkout\": \"2020-05-30\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/booking/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda de reservas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e481dee4-53ef-4357-ac00-50e189b02b8f",
+						"exec": [
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/booking?checkin=2019-06-29",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "Ley",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Red",
+							"disabled": true
+						},
+						{
+							"key": "checkin",
+							"value": "2019-06-29"
+						},
+						{
+							"key": "checkout",
+							"value": "2019-06-30",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
