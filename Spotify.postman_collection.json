@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "34ea5cf5-3c94-41d2-961b-404ad04eeb54",
+		"name": "Spotify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Info usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22b3a2ae-7b58-4c8e-af39-7abf2551ab48",
+						"exec": [
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar tiempo de respuesta\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.below(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar texto\",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"birthdate\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQBZjs7J2Ip99Al3Ol7usZEdv0BfdHHd1zlXIWYeTPTStzDRIGbL4Va5MAQkt3pNXug6Dr2fDTMeeYQWWPy_XMLQfRnk5yeMqzRr_VWNBeXRF_P257zxZLvTfpcwo3CDvNQg2DhBDD-hSJd8gqSNeEcyHuL3X6MEvD2TK3wDLik6N08l5fAxueXCeu7ZzzKJEtoM8yoLQj3WjMurmao2ZaWL4VQq9IMIkp3-Qp3Zd6CVisZRwOqBrII5aZyVmMfin9X-_PCxVxybycwKwodqC6XNwdT_DalSsqQ9Och0R2Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/me",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Info playlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35d33102-b695-47f6-a5a5-ac97676ee535",
+						"exec": [
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQBZjs7J2Ip99Al3Ol7usZEdv0BfdHHd1zlXIWYeTPTStzDRIGbL4Va5MAQkt3pNXug6Dr2fDTMeeYQWWPy_XMLQfRnk5yeMqzRr_VWNBeXRF_P257zxZLvTfpcwo3CDvNQg2DhBDD-hSJd8gqSNeEcyHuL3X6MEvD2TK3wDLik6N08l5fAxueXCeu7ZzzKJEtoM8yoLQj3WjMurmao2ZaWL4VQq9IMIkp3-Qp3Zd6CVisZRwOqBrII5aZyVmMfin9X-_PCxVxybycwKwodqC6XNwdT_DalSsqQ9Och0R2Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/me/playlists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"me",
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Info tracks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc396946-1fa2-4453-8370-8e36a99b9b39",
+						"exec": [
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar tiempo de respuesta\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar texto\",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Perfect\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQBZjs7J2Ip99Al3Ol7usZEdv0BfdHHd1zlXIWYeTPTStzDRIGbL4Va5MAQkt3pNXug6Dr2fDTMeeYQWWPy_XMLQfRnk5yeMqzRr_VWNBeXRF_P257zxZLvTfpcwo3CDvNQg2DhBDD-hSJd8gqSNeEcyHuL3X6MEvD2TK3wDLik6N08l5fAxueXCeu7ZzzKJEtoM8yoLQj3WjMurmao2ZaWL4VQq9IMIkp3-Qp3Zd6CVisZRwOqBrII5aZyVmMfin9X-_PCxVxybycwKwodqC6XNwdT_DalSsqQ9Och0R2Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/playlists/28driiXRH2NpCNMn8zIswQ/tracks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"playlists",
+						"28driiXRH2NpCNMn8zIswQ",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Info artistas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13f90660-4165-4220-a6fb-c12b84c6baec",
+						"exec": [
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar json\", function(){\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar Content-Type\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQBZjs7J2Ip99Al3Ol7usZEdv0BfdHHd1zlXIWYeTPTStzDRIGbL4Va5MAQkt3pNXug6Dr2fDTMeeYQWWPy_XMLQfRnk5yeMqzRr_VWNBeXRF_P257zxZLvTfpcwo3CDvNQg2DhBDD-hSJd8gqSNeEcyHuL3X6MEvD2TK3wDLik6N08l5fAxueXCeu7ZzzKJEtoM8yoLQj3WjMurmao2ZaWL4VQq9IMIkp3-Qp3Zd6CVisZRwOqBrII5aZyVmMfin9X-_PCxVxybycwKwodqC6XNwdT_DalSsqQ9Och0R2Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/artists/2p4FqHnazRucYQHyDCdBrJ/albums",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"artists",
+						"2p4FqHnazRucYQHyDCdBrJ",
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Infor cancion en curso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8bbd379-a70a-40b5-bab1-0e3279d57dd0",
+						"exec": [
+							"pm.test(\"Validar estatus\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validar tiempo de respuesta\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar texto\",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"total_tracks\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQBZjs7J2Ip99Al3Ol7usZEdv0BfdHHd1zlXIWYeTPTStzDRIGbL4Va5MAQkt3pNXug6Dr2fDTMeeYQWWPy_XMLQfRnk5yeMqzRr_VWNBeXRF_P257zxZLvTfpcwo3CDvNQg2DhBDD-hSJd8gqSNeEcyHuL3X6MEvD2TK3wDLik6N08l5fAxueXCeu7ZzzKJEtoM8yoLQj3WjMurmao2ZaWL4VQq9IMIkp3-Qp3Zd6CVisZRwOqBrII5aZyVmMfin9X-_PCxVxybycwKwodqC6XNwdT_DalSsqQ9Och0R2Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.spotify.com/v1/me/player",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"me",
+						"player"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
